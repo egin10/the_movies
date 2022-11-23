@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../constants/endpoint.dart';
-import '../models/movies/detail_movie_model.dart';
-import '../services/dio_service.dart';
+import '../../constants/endpoint.dart';
+import '../../models/tv/on_the_air_tv_show_model.dart';
+import '../../services/dio_service.dart';
 
-class DetailMovieRepository {
-  static Future<Either<dynamic, DetailMovieModel>> getDetailMovie(
-      String id) async {
+class OnTheAirTvShowRepository {
+  static Future<Either<dynamic, OnTheAirTvShowModel>>
+      getOnTheAirTvShows() async {
     final dio = DioService.initInstance();
 
     try {
@@ -18,12 +18,12 @@ class DetailMovieRepository {
       };
 
       final res = await dio.get(
-        Endpoint.getDetailMovie.replaceAll('%ID%', id),
+        Endpoint.getOnTheAirTv,
         options: Options(headers: headers),
       );
 
       if (res.statusCode == 200) {
-        return Right(DetailMovieModel.fromJson(json.decode(res.toString())));
+        return Right(OnTheAirTvShowModel.fromJson(json.decode(res.toString())));
       } else {
         return Left(res);
       }

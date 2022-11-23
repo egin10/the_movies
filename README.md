@@ -1,16 +1,19 @@
-# the_movies
+# The Movies
 
-A new Flutter project.
+A Flutter project with theme Movies & Tv Shows.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is a starting point for a Flutter application version 3.0.3.
 
-A few resources to get you started if this is your first Flutter project:
+You can run this application on your local computer. Here is the step below:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Clone this repository to your local computer
+- Open the repository using VScode or Android Studio
+- Install dependencies for flutter version 3.0.3 using command `flutter pub get`.
+- You can run the project using command `flutter run android` or with shortcut key (`ctrl + f5`).
+- Enjoy!
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+Egin10 🚀.

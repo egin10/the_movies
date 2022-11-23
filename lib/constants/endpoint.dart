@@ -11,8 +11,8 @@ class Endpoint {
   // TV
   static const getDetailTv = 'tv/%ID%?api_key=$apiKey';
   static const getTopRatedTv = 'tv/top_rated?api_key=$apiKey';
-  static const getUpcomingTv = 'tv/upcoming?api_key=$apiKey';
-  static const getNowPlayingTv = 'tv/now_playing?api_key=$apiKey';
+  static const getAiringTodayTv = 'tv/airing_today?api_key=$apiKey';
+  static const getOnTheAirTv = 'tv/on_the_air?api_key=$apiKey';
   static const getPopularTv = 'tv/popular?api_key=$apiKey';
 
   // Person

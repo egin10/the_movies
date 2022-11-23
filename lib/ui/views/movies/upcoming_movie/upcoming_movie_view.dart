@@ -7,7 +7,7 @@ import '../../../../utils/navigation.dart';
 import '../../../../utils/ui_helpers.dart';
 import '../../../widgets/card_poster_image.dart';
 import '../../../widgets/custom_loader.dart';
-import '../../detail_movie/detail_movie_view.dart';
+import '../detail_movie/detail_movie_view.dart';
 import 'upcoming_movie_viewmodel.dart';
 
 class UpcomingMovieView extends StatelessWidget {

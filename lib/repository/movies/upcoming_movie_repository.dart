@@ -3,13 +3,12 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../constants/endpoint.dart';
-import '../models/movies/now_playing_movie_model.dart';
-import '../services/dio_service.dart';
+import '../../constants/endpoint.dart';
+import '../../models/movies/upcoming_movie_model.dart';
+import '../../services/dio_service.dart';
 
-class NowPlayingMovieRepository {
-  static Future<Either<dynamic, NowPlayingMovieModel>>
-      getNowPlayingMovies() async {
+class UpcomingMovieRepository {
+  static Future<Either<dynamic, UpcomingMovieModel>> getUpcomingMovies() async {
     final dio = DioService.initInstance();
 
     try {
@@ -18,13 +17,12 @@ class NowPlayingMovieRepository {
       };
 
       final res = await dio.get(
-        Endpoint.getNowPlayingMovie,
+        Endpoint.getUpcomingMovie,
         options: Options(headers: headers),
       );
 
       if (res.statusCode == 200) {
-        return Right(
-            NowPlayingMovieModel.fromJson(json.decode(res.toString())));
+        return Right(UpcomingMovieModel.fromJson(json.decode(res.toString())));
       } else {
         return Left(res);
       }

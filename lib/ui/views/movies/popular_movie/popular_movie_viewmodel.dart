@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../models/movies/popular_movie_model.dart';
-import '../../../../repository/popular_movie_repository.dart';
+import '../../../../repository/movies/popular_movie_repository.dart';
 
 class PopularMovieViewModel extends ChangeNotifier {
   bool _loading = false;

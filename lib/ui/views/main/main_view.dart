@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../../constants/custom_color.dart';
 import '../../../utils/ui_helpers.dart';
-import '../../widgets/sarchbox.dart';
 import 'main_viewmodel.dart';
 import 'widgets/header.dart';
 import 'widgets/movies.dart';
@@ -22,15 +21,27 @@ class MainView extends StatelessWidget {
         child: SizedBox(
           height: screenHeight(context),
           width: screenWidth(context),
-          child: Column(
+          child: ListView(
             children: [
               Header(viewModel: viewModel),
-              const SizedBox(height: 10),
-              const SearchBox(),
-              const SizedBox(height: 10),
-              if (viewModel.menuIndex == 0) Movies(viewModel),
-              if (viewModel.menuIndex == 1) TVShows(viewModel),
-              if (viewModel.menuIndex == 2) Persons(viewModel),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: screenWidth(context),
+                height: screenHeight(context),
+                child: PageView(
+                  controller: viewModel.pageController,
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    Movies(viewModel),
+                    TVShows(viewModel),
+                    Persons(viewModel)
+                  ],
+                  onPageChanged: (index) {
+                    viewModel.setMenuIndex(index);
+                  },
+                ),
+              )
             ],
           ),
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:the_movies/repository/detail_movie_repository.dart';
 
-import '../../../models/movies/detail_movie_model.dart';
+import '../../../../models/movies/detail_movie_model.dart';
+import '../../../../repository/movies/detail_movie_repository.dart';
 
 class DetailMovieViewModel extends ChangeNotifier {
   DetailMovieModel? _detailMovie;

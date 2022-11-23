@@ -35,7 +35,7 @@ class Header extends StatelessWidget {
                   .map(
                     (entry) => _buildMenuItem(
                       title: entry.value,
-                      onPressed: () => viewModel.setMenuIndex(
+                      onPressed: () => viewModel.updateMenuIndex(
                         entry.key,
                       ),
                     ),

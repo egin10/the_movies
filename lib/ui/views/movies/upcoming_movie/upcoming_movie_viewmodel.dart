@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../models/movies/upcoming_movie_model.dart';
-import '../../../../repository/upcoming_movie_repository.dart';
+import '../../../../repository/movies/upcoming_movie_repository.dart';
 
 class UpcomingMovieViewModel extends ChangeNotifier {
   bool _loading = false;

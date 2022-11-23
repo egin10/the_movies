@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../models/movies/now_playing_movie_model.dart';
-import '../../../../repository/now_playing_movie_repository.dart';
+import '../../../../repository/movies/now_playing_movie_repository.dart';
 
 class NowPlayingMovieViewModel extends ChangeNotifier {
   bool _loading = false;

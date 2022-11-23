@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:the_movies/models/highlights_model.dart';
-import 'package:the_movies/ui/views/detail_movie/detail_movie_view.dart';
-import 'package:the_movies/utils/navigation.dart';
 
 import '../../../../constants/custom_color.dart';
+import '../../../../models/highlights_model.dart';
+import '../../../../utils/navigation.dart';
 import '../../../../utils/ui_helpers.dart';
 import '../../../widgets/card_poster_image.dart';
+import '../../movies/detail_movie/detail_movie_view.dart';
 
-class HighlightsSection extends StatelessWidget {
+class HighlightsMovies extends StatelessWidget {
   final String title;
   final VoidCallback? navigate;
   final List<HighlightsModel>? listData;
-  const HighlightsSection(
+  const HighlightsMovies(
       {Key? key, required this.title, this.navigate, this.listData})
       : super(key: key);
 

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,10 +29,12 @@ class CardPosterImage extends StatelessWidget {
             width: width,
             margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
             decoration: BoxDecoration(
-              color: Colors.black54,
+              color: Colors.black,
               borderRadius: BorderRadius.circular(6),
               image: DecorationImage(
-                image: NetworkImage('${Endpoint.imageOriginUri}/$posterPath'),
+                image: CachedNetworkImageProvider(
+                  '${Endpoint.imageOriginUri}/$posterPath',
+                ),
                 fit: BoxFit.cover,
               ),
             ),

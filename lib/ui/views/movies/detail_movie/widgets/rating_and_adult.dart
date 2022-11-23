@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../constants/custom_color.dart';
+import '../../../../../constants/custom_color.dart';
 
 class RatingAndAdult extends StatelessWidget {
   final double rating;

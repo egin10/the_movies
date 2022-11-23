@@ -1,4 +1,4 @@
-import '../models/movies/detail_movie_model.dart';
+import '../models/spoken_language.dart';
 
 String getOriginalLanguage(List<SpokenLanguage> list, String original) => list
     .map((spoken) {

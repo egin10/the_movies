@@ -3,24 +3,23 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants/custom_color.dart';
-import '../../../../utils/navigation.dart';
 import '../../../../utils/ui_helpers.dart';
 import '../../../widgets/card_poster_image.dart';
 import '../../../widgets/custom_loader.dart';
-import '../detail_movie/detail_movie_view.dart';
-import 'top_rated_movie_viewmodel.dart';
+import 'on_the_air_tv_show_viewmodel.dart';
 
-class TopRatedMovieView extends StatelessWidget {
-  const TopRatedMovieView({Key? key}) : super(key: key);
+class OnTheAirTvShowView extends StatelessWidget {
+  const OnTheAirTvShowView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    TopRatedMovieViewModel viewModel = context.watch<TopRatedMovieViewModel>();
+    OnTheAirTvShowViewModel viewModel =
+        context.watch<OnTheAirTvShowViewModel>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Top Rated Movies',
+          'On The Air TV Shows',
           style: GoogleFonts.lato(),
         ),
       ),
@@ -35,20 +34,20 @@ class TopRatedMovieView extends StatelessWidget {
                 crossAxisCount: 3,
                 shrinkWrap: true,
                 childAspectRatio: 0.7,
-                children: viewModel.topRatedMovies.results != null
-                    ? viewModel.topRatedMovies.results!
+                children: viewModel.onTheAirTvShows.results != null
+                    ? viewModel.onTheAirTvShows.results!
                         .map((data) => CardPosterImage(
                               posterPath: '${data.posterPath}',
                               rate: data.voteAverage ?? 0,
-                              onTap: () => navigateTo(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DetailMovieView(
-                                    id: '${data.id}',
-                                    title: data.title ?? '',
-                                  ),
-                                ),
-                              ),
+                              // onTap: () => navigateTo(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => DetailMovieView(
+                              //       id: '${data.id}',
+                              //       title: data.title ?? '',
+                              //     ),
+                              //   ),
+                              // ),
                             ))
                         .toList()
                     : [],

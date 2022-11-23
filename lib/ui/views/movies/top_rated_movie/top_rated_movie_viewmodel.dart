@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../models/movies/top_rated_movie_model.dart';
-import '../../../../repository/top_rated_movie_repository.dart';
+import '../../../../repository/movies/top_rated_movie_repository.dart';
 
 class TopRatedMovieViewModel extends ChangeNotifier {
   bool _loading = false;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../main_viewmodel.dart';
-import 'highlights_section.dart';
+import 'highlights_movies.dart';
 
 class Persons extends StatelessWidget {
   final MainViewModel viewModel;
@@ -9,17 +9,15 @@ class Persons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        children: [
-          HighlightsSection(
-            title: 'Popular People',
-            navigate: () {
-              print('Navigate to Popular Page');
-            },
-          ),
-        ],
-      ),
+    return ListView(
+      children: [
+        HighlightsMovies(
+          title: 'Popular People',
+          navigate: () {
+            print('Navigate to Popular Page');
+          },
+        ),
+      ],
     );
   }
 }

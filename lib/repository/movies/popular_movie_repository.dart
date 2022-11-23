@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../constants/endpoint.dart';
-import '../models/movies/top_rated_movie_model.dart';
-import '../services/dio_service.dart';
+import '../../constants/endpoint.dart';
+import '../../models/movies/popular_movie_model.dart';
+import '../../services/dio_service.dart';
 
-class TopRatedMovieRepository {
-  static Future<Either<dynamic, TopRatedMovieModel>> getTopRatedMovies() async {
+class PopularMovieRepository {
+  static Future<Either<dynamic, PopularMovieModel>> getPopularMovies() async {
     final dio = DioService.initInstance();
 
     try {
@@ -17,12 +17,12 @@ class TopRatedMovieRepository {
       };
 
       final res = await dio.get(
-        Endpoint.getTopRatedMovie,
+        Endpoint.getPopularMovie,
         options: Options(headers: headers),
       );
 
       if (res.statusCode == 200) {
-        return Right(TopRatedMovieModel.fromJson(json.decode(res.toString())));
+        return Right(PopularMovieModel.fromJson(json.decode(res.toString())));
       } else {
         return Left(res);
       }

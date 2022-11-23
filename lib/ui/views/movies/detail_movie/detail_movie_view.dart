@@ -1,14 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:the_movies/utils/get_original_language.dart';
 
-import '../../../constants/custom_color.dart';
-import '../../../constants/endpoint.dart';
-import '../../../models/movies/detail_movie_model.dart';
-import '../../../utils/convert_datetime.dart';
-import '../../../utils/ui_helpers.dart';
-import '../../widgets/custom_loader.dart';
+import '../../../../constants/custom_color.dart';
+import '../../../../constants/endpoint.dart';
+import '../../../../models/movies/detail_movie_model.dart';
+import '../../../../utils/convert_datetime.dart';
+import '../../../../utils/get_original_language.dart';
+import '../../../../utils/ui_helpers.dart';
+import '../../../widgets/custom_loader.dart';
 import 'detail_movie_viewmodel.dart';
 import 'widgets/gendre.dart';
 import 'widgets/rating_and_adult.dart';
@@ -103,12 +104,17 @@ class DetailMovieView extends StatelessWidget {
                     const SizedBox(height: 6),
                     _buildItemList(
                       title: 'Runtime',
-                      value: '${(data.runtime! / 60).toStringAsFixed(2)} min',
+                      value: '${(data.runtime! / 60).toStringAsFixed(2)} hour',
                     ),
                     const SizedBox(height: 6),
                     _buildItemList(
                       title: 'Total Count',
                       value: '${data.voteCount}',
+                    ),
+                    const SizedBox(height: 6),
+                    _buildItemList(
+                      title: 'Budget',
+                      value: '\$${data.budget}',
                     ),
                     const SizedBox(height: 8),
                     _buildGendres(data),
@@ -141,26 +147,35 @@ class DetailMovieView extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: 50,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                primary: data.video! ? CustomColor.redColor : Colors.red[300],
-              ),
-              child: Center(
-                child: Text(
-                  'Watch',
-                  style: GoogleFonts.lato(
-                    color: data.video! ? CustomColor.whiteColor : Colors.grey,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+          _buildButtonWatch(data),
+        ],
+      ),
+    );
+  }
+
+  Container _buildButtonWatch(DetailMovieModel data) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+            primary: data.video! ? CustomColor.redColor : Colors.red[300],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            )),
+        child: Center(
+          child: Text(
+            'Watch',
+            style: GoogleFonts.lato(
+              color: data.video!
+                  ? CustomColor.whiteColor
+                  : CustomColor.darkBlueColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -215,8 +230,8 @@ class DetailMovieView extends StatelessWidget {
           height: screenHeight(context) / 4,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image:
-                  NetworkImage('${Endpoint.imageW500Uri}/${data.backdropPath}'),
+              image: CachedNetworkImageProvider(
+                  '${Endpoint.imageW500Uri}/${data.backdropPath}'),
               fit: BoxFit.cover,
             ),
           ),
