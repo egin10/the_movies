@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:the_movies/ui/views/detail_movie/detail_movie_view.dart';
+import 'package:the_movies/ui/widgets/custom_loader.dart';
+import 'package:the_movies/utils/navigation.dart';
 
 import '../../../../constants/custom_color.dart';
-import '../../../../utils/navigation.dart';
 import '../../../../utils/ui_helpers.dart';
 import '../../../widgets/card_poster_image.dart';
-import '../../../widgets/custom_loader.dart';
-import '../../detail_movie/detail_movie_view.dart';
-import 'upcoming_movie_viewmodel.dart';
+import 'popular_movie_viewmodel.dart';
 
-class UpcomingMovieView extends StatelessWidget {
-  const UpcomingMovieView({Key? key}) : super(key: key);
+class PopularMovieView extends StatelessWidget {
+  const PopularMovieView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    UpcomingMovieViewModel viewModel = context.watch<UpcomingMovieViewModel>();
+    PopularMovieViewModel viewModel = context.watch<PopularMovieViewModel>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Upcoming Movies',
+          'Popular Movies',
           style: GoogleFonts.lato(),
         ),
       ),
@@ -35,8 +35,8 @@ class UpcomingMovieView extends StatelessWidget {
                 crossAxisCount: 3,
                 shrinkWrap: true,
                 childAspectRatio: 0.7,
-                children: viewModel.upcomingMovies.results != null
-                    ? viewModel.upcomingMovies.results!
+                children: viewModel.popularMovies.results != null
+                    ? viewModel.popularMovies.results!
                         .map((data) => CardPosterImage(
                               posterPath: '${data.posterPath}',
                               rate: data.voteAverage ?? 0,

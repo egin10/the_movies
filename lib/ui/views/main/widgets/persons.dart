@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../main_viewmodel.dart';
 import 'highlights_section.dart';
 
 class Persons extends StatelessWidget {
-  const Persons({Key? key}) : super(key: key);
+  final MainViewModel viewModel;
+  const Persons(this.viewModel, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,7 @@ class Persons extends StatelessWidget {
         children: [
           HighlightsSection(
             title: 'Popular People',
-            navigateTo: () {
+            navigate: () {
               print('Navigate to Popular Page');
             },
           ),

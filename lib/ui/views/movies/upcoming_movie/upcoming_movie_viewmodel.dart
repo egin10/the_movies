@@ -5,33 +5,33 @@ import '../../../../repository/upcoming_movie_repository.dart';
 
 class UpcomingMovieViewModel extends ChangeNotifier {
   bool _loading = false;
-  UpcomingMovieModel? _topRatedMovies;
+  UpcomingMovieModel? _upcomingMovies;
 
   bool get loading => _loading;
-  UpcomingMovieModel get topRatedMovies =>
-      _topRatedMovies ?? UpcomingMovieModel();
+  UpcomingMovieModel get upcomingMovies =>
+      _upcomingMovies ?? UpcomingMovieModel();
 
   setLoading(bool value) {
     _loading = value;
     notifyListeners();
   }
 
-  setTopRatedMovies(UpcomingMovieModel? value) {
-    _topRatedMovies = value;
+  setUpcomingMovies(UpcomingMovieModel? value) {
+    _upcomingMovies = value;
   }
 
   UpcomingMovieViewModel() {
-    getTopRatedMovies();
+    getUpcomingMovies();
   }
 
-  getTopRatedMovies() async {
+  getUpcomingMovies() async {
     setLoading(true);
 
     final response = await UpcomingMovieRepository.getUpcomingMovies();
     response.fold(
       (err) => null,
       (res) {
-        setTopRatedMovies(res);
+        setUpcomingMovies(res);
       },
     );
 

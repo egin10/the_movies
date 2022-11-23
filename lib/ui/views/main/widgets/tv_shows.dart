@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../main_viewmodel.dart';
 import 'highlights_section.dart';
 
 class TVShows extends StatelessWidget {
-  const TVShows({Key? key}) : super(key: key);
+  final MainViewModel viewModel;
+  const TVShows(this.viewModel, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,25 +14,25 @@ class TVShows extends StatelessWidget {
         children: [
           HighlightsSection(
             title: 'The On Air TV Shows',
-            navigateTo: () {
+            navigate: () {
               print('Navigate to Now Playing Page');
             },
           ),
           HighlightsSection(
             title: 'Top Rated TV Shows',
-            navigateTo: () {
+            navigate: () {
               print('Navigate to Top Rated Page');
             },
           ),
           HighlightsSection(
             title: 'Airing Today TV Shows',
-            navigateTo: () {
+            navigate: () {
               print('Navigate to Upcoming Page');
             },
           ),
           HighlightsSection(
             title: 'Popular TV Shows',
-            navigateTo: () {
+            navigate: () {
               print('Navigate to Popular Page');
             },
           ),

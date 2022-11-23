@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:the_movies/ui/views/main/main_viewmodel.dart';
 
 import '../../../../constants/custom_color.dart';
 import '../../../../utils/ui_helpers.dart';
+import '../main_viewmodel.dart';
 
 class Header extends StatelessWidget {
   final MainViewModel viewModel;
@@ -34,10 +34,11 @@ class Header extends StatelessWidget {
                   .entries
                   .map(
                     (entry) => _buildMenuItem(
-                        data: entry.value,
-                        onPressed: () => viewModel.setMenuIndex(
-                              entry.key,
-                            )),
+                      title: entry.value,
+                      onPressed: () => viewModel.setMenuIndex(
+                        entry.key,
+                      ),
+                    ),
                   )
                   .toList(),
             ),
@@ -48,13 +49,13 @@ class Header extends StatelessWidget {
   }
 
   Container _buildMenuItem(
-      {required Map<String, dynamic> data, required VoidCallback onPressed}) {
+      {required String title, required VoidCallback onPressed}) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: TextButton(
         onPressed: onPressed,
         child: Text(
-          data['title'],
+          title,
           style: GoogleFonts.lato(
             fontSize: 16,
             color: CustomColor.whiteColor,

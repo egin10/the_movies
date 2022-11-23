@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:the_movies/models/highlights_model.dart';
+import 'package:the_movies/ui/views/detail_movie/detail_movie_view.dart';
+import 'package:the_movies/utils/navigation.dart';
 
 import '../../../../constants/custom_color.dart';
 import '../../../../utils/ui_helpers.dart';
@@ -7,8 +10,10 @@ import '../../../widgets/card_poster_image.dart';
 
 class HighlightsSection extends StatelessWidget {
   final String title;
-  final VoidCallback? navigateTo;
-  const HighlightsSection({Key? key, required this.title, this.navigateTo})
+  final VoidCallback? navigate;
+  final List<HighlightsModel>? listData;
+  const HighlightsSection(
+      {Key? key, required this.title, this.navigate, this.listData})
       : super(key: key);
 
   @override
@@ -20,46 +25,50 @@ class HighlightsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  title,
-                  style: GoogleFonts.lato(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: CustomColor.whiteColor,
-                  ),
-                ),
+          TextButton(
+            onPressed: navigate,
+            child: Text(
+              title,
+              style: GoogleFonts.lato(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: CustomColor.whiteColor,
               ),
-              // TextButton(
-              //   onPressed: navigateTo,
-              //   child: Text(
-              //     'view more',
-              //     style: GoogleFonts.lato(
-              //       fontSize: 14,
-              //       fontWeight: FontWeight.w400,
-              //       color: CustomColor.whiteColor,
-              //     ),
-              //   ),
-              // ),
-            ],
+            ),
           ),
           const SizedBox(height: 10),
           Expanded(
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                for (int i = 0; i < 5; i++)
-                  const CardPosterImage(
-                    posterPath: '/pFlaoHTZeyNkG83vxsAJiGzfSsa.jpg',
+            child: listData != null
+                ? ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: listData!
+                        .map(
+                          (data) => CardPosterImage(
+                            posterPath: '${data.posterPath}',
+                            width: 100,
+                            rate: data.rate,
+                            onTap: () => navigateTo(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailMovieView(
+                                  id: '${data.id}',
+                                  title: data.title ?? '',
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  )
+                : Center(
+                    child: Text(
+                      'Empty',
+                      style: GoogleFonts.lato(
+                          color: CustomColor.whiteColor,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ),
-              ],
-            ),
-          )
+          ),
         ],
       ),
     );

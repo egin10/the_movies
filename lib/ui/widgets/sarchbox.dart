@@ -8,7 +8,7 @@ class SearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
+      height: 35,
       width: screenWidth(context),
       margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
