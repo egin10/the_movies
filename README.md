@@ -14,7 +14,7 @@ You can run this application on your local computer. Here is the step below:
 - You can run the project using command `flutter run android` or with shortcut key (`ctrl + f5`).
 - Enjoy!
 
-You can try the Application by download the apk from the release version (here)[]
+You can try the Application by download the apk from the release version [here](https://github.com/egin10/the_movies/releases).
 
 ---
 
