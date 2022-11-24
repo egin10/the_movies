@@ -2,27 +2,30 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../constants/custom_color.dart';
 import '../../../../constants/endpoint.dart';
-import '../../../../models/movies/detail_movie_model.dart';
+import '../../../../models/tv/detail_tv_show_model.dart';
 import '../../../../utils/convert_datetime.dart';
 import '../../../../utils/get_original_language.dart';
 import '../../../../utils/ui_helpers.dart';
 import '../../../widgets/custom_loader.dart';
-import 'detail_movie_viewmodel.dart';
+import 'detail_tv_show_viewmodel.dart';
+import 'widgets/company_card.dart';
 import 'widgets/gendre_card.dart';
 import 'widgets/rating_and_adult.dart';
+import 'widgets/tv_show_card.dart';
 
-class DetailMovieView extends StatelessWidget {
+class DetailTvShowView extends StatelessWidget {
   final String id;
   final String title;
-  const DetailMovieView({Key? key, required this.id, required this.title})
+  const DetailTvShowView({Key? key, required this.id, required this.title})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    DetailMovieViewModel viewModel = context.watch<DetailMovieViewModel>();
+    DetailTvShowViewModel viewModel = context.watch<DetailTvShowViewModel>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -34,7 +37,7 @@ class DetailMovieView extends StatelessWidget {
       backgroundColor: CustomColor.darkBlueColor,
       body: SafeArea(
         child: FutureBuilder(
-            future: viewModel.getDetailMovie(id),
+            future: viewModel.getDetailTvShow(id),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return _buildContent(context, viewModel);
@@ -46,8 +49,9 @@ class DetailMovieView extends StatelessWidget {
     );
   }
 
-  SizedBox _buildContent(BuildContext context, DetailMovieViewModel viewModel) {
-    final data = viewModel.detailMovie;
+  SizedBox _buildContent(
+      BuildContext context, DetailTvShowViewModel viewModel) {
+    final data = viewModel.detailTvShow;
     return SizedBox(
       height: screenHeight(context),
       width: screenWidth(context),
@@ -63,7 +67,7 @@ class DetailMovieView extends StatelessWidget {
                   children: [
                     // Original Title
                     Text(
-                      '${data.originalTitle}',
+                      '${data.originalName}',
                       style: GoogleFonts.lato(
                         color: CustomColor.whiteColor,
                         fontSize: 18,
@@ -98,23 +102,36 @@ class DetailMovieView extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     _buildItemList(
+                      title: 'Season',
+                      value:
+                          'Season ${data.numberOfSeasons} (${data.numberOfEpisodes} episode)',
+                    ),
+                    const SizedBox(height: 6),
+                    _buildItemList(
+                      title: 'Production Country',
+                      value: data.productionCountries!.isNotEmpty
+                          ? '${data.productionCountries?[0].name}'
+                          : '',
+                    ),
+                    const SizedBox(height: 6),
+                    _buildItemList(
+                      title: 'Status',
+                      value: '${data.status}',
+                    ),
+                    const SizedBox(height: 6),
+                    _buildItemList(
+                      title: 'Type',
+                      value: '${data.type}',
+                    ),
+                    const SizedBox(height: 6),
+                    _buildItemList(
                       title: 'Popularity',
                       value: '${data.popularity}',
                     ),
                     const SizedBox(height: 6),
                     _buildItemList(
-                      title: 'Runtime',
-                      value: '${(data.runtime! / 60).toStringAsFixed(2)} hour',
-                    ),
-                    const SizedBox(height: 6),
-                    _buildItemList(
                       title: 'Total Count',
                       value: '${data.voteCount}',
-                    ),
-                    const SizedBox(height: 6),
-                    _buildItemList(
-                      title: 'Budget',
-                      value: '\$${data.budget}',
                     ),
                     const SizedBox(height: 8),
                     _buildGendres(context, data),
@@ -129,48 +146,100 @@ class DetailMovieView extends StatelessWidget {
                         height: 1.5,
                       ),
                     ),
-                    const SizedBox(height: 30),
-                    // Release
+                    const SizedBox(height: 8),
+                    // First Air Date
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
                         textAlign: TextAlign.justify,
-                        '${data.status} on ${convertDatetime('${data.releaseDate}')}',
+                        'First air date on ${convertDatetime('${data.firstAirDate}')}',
                         style: GoogleFonts.lato(
                           color: CustomColor.whiteColor,
                           fontSize: 12,
                         ),
                       ),
                     ),
+                    const SizedBox(height: 10),
+                    // Companies
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Companies',
+                        style: GoogleFonts.lato(
+                          color: CustomColor.whiteColor,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    _buildCompanyLogo(context, data),
+                    const SizedBox(height: 8),
+                    // Watch On
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Watch on',
+                        style: GoogleFonts.lato(
+                          color: CustomColor.whiteColor,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    _buildTvShows(context, data),
+                    const SizedBox(height: 30),
                   ],
                 ),
               ),
             ),
           ),
-          _buildButtonWatch(data),
+          _buildButtonHomepage(data, viewModel),
         ],
       ),
     );
   }
 
-  Container _buildButtonWatch(DetailMovieModel data) {
+  SizedBox _buildCompanyLogo(BuildContext context, DetailTvShowModel data) {
+    return SizedBox(
+      width: screenWidth(context),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: data.productionCompanies != null
+              ? data.productionCompanies!
+                  .map(
+                    (data) => CompanyCard(
+                      name: '${data.name}',
+                      country: '${data.originCountry}',
+                      logoPath: data.logoPath,
+                    ),
+                  )
+                  .toList()
+              : [],
+        ),
+      ),
+    );
+  }
+
+  Container _buildButtonHomepage(
+      DetailTvShowModel data, DetailTvShowViewModel viewModel) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () async {
+          viewModel.openHomepage(data.homepage ?? '');
+        },
         style: ElevatedButton.styleFrom(
-            primary: data.video! ? CustomColor.redColor : Colors.red[300],
+            primary: CustomColor.redColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50),
             )),
         child: Center(
           child: Text(
-            'Watch',
+            'Homepage',
             style: GoogleFonts.lato(
-              color: data.video!
-                  ? CustomColor.whiteColor
-                  : CustomColor.darkBlueColor,
+              color: CustomColor.whiteColor,
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -180,7 +249,7 @@ class DetailMovieView extends StatelessWidget {
     );
   }
 
-  SizedBox _buildGendres(BuildContext context, DetailMovieModel data) {
+  SizedBox _buildGendres(BuildContext context, DetailTvShowModel data) {
     return SizedBox(
       width: screenWidth(context),
       child: SingleChildScrollView(
@@ -191,6 +260,26 @@ class DetailMovieView extends StatelessWidget {
               ? data.genres!
                   .map((gendre) => GendreCard(
                         name: '${gendre.name}',
+                      ))
+                  .toList()
+              : [],
+        ),
+      ),
+    );
+  }
+
+  SizedBox _buildTvShows(BuildContext context, DetailTvShowModel data) {
+    return SizedBox(
+      width: screenWidth(context),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: data.networks != null
+              ? data.networks!
+                  .map((network) => TvShowCard(
+                        name: '${network.name}',
+                        logoPath: network.logoPath,
                       ))
                   .toList()
               : [],
@@ -224,7 +313,7 @@ class DetailMovieView extends StatelessWidget {
     );
   }
 
-  Stack _buildBackdropImage(BuildContext context, DetailMovieModel data) {
+  Stack _buildBackdropImage(BuildContext context, DetailTvShowModel data) {
     return Stack(
       children: [
         Container(

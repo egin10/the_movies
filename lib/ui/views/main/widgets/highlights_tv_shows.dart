@@ -6,7 +6,7 @@ import '../../../../models/highlights_model.dart';
 import '../../../../utils/navigation.dart';
 import '../../../../utils/ui_helpers.dart';
 import '../../../widgets/card_poster_image.dart';
-import '../../movies/detail_movie/detail_movie_view.dart';
+import '../../tv_shows/detail_tv_show/detail_tv_show_view.dart';
 
 class HighlightsTvShows extends StatelessWidget {
   final String title;
@@ -47,15 +47,15 @@ class HighlightsTvShows extends StatelessWidget {
                             posterPath: '${data.posterPath}',
                             width: 100,
                             rate: data.rate,
-                            // onTap: () => navigateTo(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => DetailMovieView(
-                            //       id: '${data.id}',
-                            //       title: data.title ?? '',
-                            //     ),
-                            //   ),
-                            // ),
+                            onTap: () => navigateTo(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailTvShowView(
+                                  id: '${data.id}',
+                                  title: data.title ?? '',
+                                ),
+                              ),
+                            ),
                           ),
                         )
                         .toList(),

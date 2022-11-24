@@ -8,7 +8,7 @@ import '../../models/tv/detail_tv_show_model.dart';
 import '../../services/dio_service.dart';
 
 class DetailTvShowRepository {
-  static Future<Either<dynamic, DetailTvShowModel>> getAiringTodayTvShows(
+  static Future<Either<dynamic, DetailTvShowModel>> getDetailTvShow(
       String id) async {
     final dio = DioService.initInstance();
 

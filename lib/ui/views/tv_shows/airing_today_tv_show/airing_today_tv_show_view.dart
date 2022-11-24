@@ -3,9 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants/custom_color.dart';
+import '../../../../utils/navigation.dart';
 import '../../../../utils/ui_helpers.dart';
 import '../../../widgets/card_poster_image.dart';
 import '../../../widgets/custom_loader.dart';
+import '../detail_tv_show/detail_tv_show_view.dart';
 import 'airing_today_tv_show_viewmodel.dart';
 
 class AiringTodayTvShowView extends StatelessWidget {
@@ -39,15 +41,15 @@ class AiringTodayTvShowView extends StatelessWidget {
                         .map((data) => CardPosterImage(
                               posterPath: '${data.posterPath}',
                               rate: data.voteAverage ?? 0,
-                              // onTap: () => navigateTo(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => DetailMovieView(
-                              //       id: '${data.id}',
-                              //       title: data.title ?? '',
-                              //     ),
-                              //   ),
-                              // ),
+                              onTap: () => navigateTo(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailTvShowView(
+                                    id: '${data.id}',
+                                    title: data.originalName ?? '',
+                                  ),
+                                ),
+                              ),
                             ))
                         .toList()
                     : [],

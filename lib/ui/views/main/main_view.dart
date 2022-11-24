@@ -27,7 +27,7 @@ class MainView extends StatelessWidget {
               const SizedBox(height: 20),
               SizedBox(
                 width: screenWidth(context),
-                height: screenHeight(context),
+                height: screenHeight(context) / 1.2,
                 child: PageView(
                   controller: viewModel.pageController,
                   scrollDirection: Axis.horizontal,

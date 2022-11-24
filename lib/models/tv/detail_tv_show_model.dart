@@ -180,7 +180,7 @@ class LastEpisodeToAir {
   int? seasonNumber;
   int? showId;
   String? stillPath;
-  int? voteAverage;
+  double? voteAverage;
   int? voteCount;
 
   factory LastEpisodeToAir.fromJson(Map<String, dynamic> json) =>
