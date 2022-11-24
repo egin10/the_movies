@@ -14,7 +14,7 @@ class Persons extends StatelessWidget {
         HighlightsMovies(
           title: 'Popular People',
           navigate: () {
-            print('Navigate to Popular Page');
+            // print('Navigate to Popular Page');
           },
         ),
       ],

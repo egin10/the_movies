@@ -9,7 +9,6 @@ import 'ui/views/movies/now_playing_movie/now_playing_movie_viewmodel.dart';
 import 'ui/views/movies/popular_movie/popular_movie_viewmodel.dart';
 import 'ui/views/movies/top_rated_movie/top_rated_movie_viewmodel.dart';
 import 'ui/views/movies/upcoming_movie/upcoming_movie_viewmodel.dart';
-import 'ui/views/splash_screen/splash_screen_view.dart';
 import 'ui/views/tv_shows/airing_today_tv_show/airing_today_tv_show_viewmodel.dart';
 import 'ui/views/tv_shows/detail_tv_show/detail_tv_show_viewmodel.dart';
 import 'ui/views/tv_shows/on_the_air_tv_show/on_the_air_tv_show_viewmodel.dart';
