@@ -34,8 +34,8 @@ jobs:
       - name: Run Flutter Analyze
         run: flutter analyze
 
-      - name: Run Flutter Test
-        run: flutter test
+      # - name: Run Flutter Test
+      #   run: flutter test
 
   build_apk_and_ios:
     name: Build Flutter Apk & iOS
