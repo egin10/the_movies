@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^3.0.1
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.7
+  sentry_flutter: ^6.17.0
 
 dev_dependencies:
   flutter_test:
